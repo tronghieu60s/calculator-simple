@@ -27,6 +27,7 @@
 .block-top {
     margin-top: 12px;
     height: 25%;
+    overflow: hidden;
 }
 
 .block-button {

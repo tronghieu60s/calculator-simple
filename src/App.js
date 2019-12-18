@@ -13,19 +13,24 @@ export class App extends Component {
     }
   }
 
-  calculation = (event) => {
+  calculation = (event, key = 0) => {
     let { calculation, result } = this.state;
-    let value = event.target.innerText;
+    let value;
+    if(key === 0){
+      value = event.target.innerText;
+    }else{
+      value = event.key;
+    }
     let lastPositonCal = calculation[calculation.length - 1];
     if (result !== 0) {
       if (typeof lastPositonCal !== "undefined") {
-        if (lastPositonCal.match(/[+\-*/%]/)) {
-          if (!value.match(/[+\-*/%]/)) {
+        if (lastPositonCal.match(/[+\-*/%.]/)) {
+          if (!value.match(/[+\-*/%.]/)) {
             calculation += value;
             result = eval(calculation);
           }
         } else {
-          if (!value.match(/[+\-*/%]/)) {
+          if (!value.match(/[+\-*/%.]/)) {
             calculation += value;
             result = eval(calculation);
           } else {
@@ -54,7 +59,7 @@ export class App extends Component {
     let deleteCal = calculation.slice(0, -1);
     let lastPositionCal = deleteCal[deleteCal.length - 1];
     if (typeof lastPositionCal !== "undefined") {
-      if (!lastPositionCal.match(/[+\-*/%]/)) {
+      if (!lastPositionCal.match(/[+\-*/%.]/)) {
         result = eval(deleteCal);
       }
     } else {
@@ -99,6 +104,18 @@ export class App extends Component {
 
   componentDidMount = () => {
     let statusDarkMode = JSON.parse(localStorage.getItem("DARKMODE-STATUS"));
+    let fun = this;
+    window.addEventListener("keydown", function(event){
+      if(event.key.match(/[0-9+\-*/%.]/)){
+        fun.calculation(event, 1);
+      }else if(event.key === "Backspace"){
+        fun.deleteOne();
+      }else if(event.key === "Delete"){
+        fun.deleteAll();
+      }else if(event.key === "=" || event.keyCode === 32){
+        fun.calculator();
+      }
+    })
     this.darkModeButton(statusDarkMode);
     this.setState({
       statusDarkMode
