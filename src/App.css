@@ -83,6 +83,8 @@
     font-weight: 600;
     color: #808284d4;
     transition: 0.4s;
+    overflow: hidden;
+    margin-left: 71px;
 }
 
 .result {
@@ -94,6 +96,8 @@
     color: hsla(0, 6%, 20%, 1);
     font-weight: 900;
     transition: 0.4s;
+    overflow: hidden;
+    margin-left: 15px;
 }
 
 .result.equal {

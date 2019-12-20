@@ -84,6 +84,7 @@ export class App extends Component {
     if (statusEqual) {
       this.setState({
         result: 0,
+        calculation: '',
         statusEqual: false
       })
     } else {
